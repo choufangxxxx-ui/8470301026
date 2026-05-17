@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華南永昌綜合證券 - 填寫開戶資料</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@2.1.1/dist/tw-city-selector.min.js"></script>
+
+    <style>
+        /* ========================================== */
+        /* CSS 變數區：方便你快速替換色碼與間距 */
+        /* ========================================== */
+        :root {
+            --primary-red: #cc2a2a;
+            --btn-orange: #d18a38;
+            --btn-gray: #9e9e9e;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --border-color: #e0e0e0;
+            --bg-fallback: #faeedf; /* 圖片若失效時的備用底色 */
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, 'LiHei Pro', '微軟正黑體', sans-serif;
+        }
+
+        body {
+            /* 套用你提供的背景圖片 */
+            background-color: var(--bg-fallback);
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 頂部 Logo 區塊 */
+        header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+        }
+        header img {
+            max-height: 55px; /* 控制 Logo 大小 */
+            width: auto;
+        }
+
+        /* 主要表單容器 */
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            background: rgba(255, 255, 255, 0.95); /* 微微透出背景 */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* 表單標題列 */
+        .form-header {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-body {
+            padding: 20px 30px;
+        }
+
+        /* 表單列設計 (RWD 核心) */
+        .form-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .form-row:last-child {
+            border-bottom: none;
+        }
+
+        .form-label {
+            width: 160px;
+            flex-shrink: 0;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .form-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* 輸入框與下拉選單樣式 */
+        input[type="text"], 
+        input[type="date"], 
+        select {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 250px;
+            outline: none;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary-red);
+        }
+
+        /* tw-city-selector 下拉選單間距微調 */
+        .city-selector-set select {
+            width: auto;
+            min-width: 120px;
+            margin-right: 5px;
+        }
+
+        /* 特殊欄位排版 */
+        .flex-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .text-red { color: var(--primary-red); font-size: 12px; }
+        
+        /* 針對不動產連結的特殊樣式 */
+        .property-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-red);
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+        .property-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        .property-link img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+        }
+
+        /* 底部按鈕區 */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 30px 0 10px 0;
+        }
+
+        .btn {
+            padding: 10px 30px;
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+        }
+        .btn-gray { background-color: var(--btn-gray); }
+        .btn-orange { background-color: var(--btn-orange); }
+        .btn:hover { opacity: 0.8; }
+
+        /* 頁尾 */
+        footer {
+            background-color: var(--primary-red);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            margin-top: auto;
+            line-height: 1.6;
+        }
+
+        /* ========================================== */
+        /* RWD 手機版設定 (小於 768px 時觸發) */
+        /* ========================================== */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-label {
+                width: 100%;
+                margin-bottom: 8px;
+            }
+            input[type="text"], input[type="date"], select {
+                max-width: 100%;
+            }
+            .form-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="華南永昌綜合證券 HUA NAN SECURITIES">
+    </header>
+
+    <div class="container">
+        <div class="form-header">
+            填寫開戶資料
+        </div>
+        
+        <div class="form-body">
+            <div class="form-row" style="border-bottom: 2px solid #eee;">
+                <label class="flex-row" style="font-weight: bold; font-size: 16px;">
+                    <input type="checkbox" style="width: 20px; height: 20px;">
+                    請點擊閱讀並同意「個人資料保護法告知事項」
+                </label>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*是否具有其他稅籍/國籍</div>
+                <div class="form-content">
+                    <label class="flex-row"><input type="radio" name="tax"> 否，僅具臺灣之稅籍/國籍</label>
+                    <label class="flex-row"><input type="radio" name="tax"> 是，具有其他之稅籍/國籍</label>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*中文姓名</div>
+                <div class="form-content">
+                    <input type="text" placeholder="請輸入">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">英文姓名</div>
+                <div class="form-content" style="flex-direction: column; align-items: flex-start;">
+                    <input type="text" placeholder="請輸入">
+                    <span class="text-red">※如未填寫則授權本行翻譯</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*身分證字號</div>
+                <div class="form-content" style="justify-content: space-between;">
+                    <input type="text" placeholder="身分證補發日期">
+                    <div class="flex-row" style="margin-left: 20px;">
+                        <span>*是否受監護宣告(N)</span>
+                        <label><input type="radio" name="guard"> 是</label>
+                        <label><input type="radio" name="guard"> 否</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*出生年月日</div>
+                <div class="form-content flex-row">
+                    <input type="date" style="width: 150px;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*婚姻狀況</div>
+                <div class="form-content">
+                    <select>
+                        <option value="">==請選擇==</option>
+                        <option value="未婚">未婚（Single / Never Married）</option>
+                        <option value="已婚">已婚（Married）</option>
+                        <option value="離婚">離婚（Divorced）</option>
+                        <option value="喪偶">喪偶（Widowed）</option>
+                        <option value="分居">分居（Legally Separated）</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*教育程度</div>
+                <div class="form-content">
+                    <select>
+                        <option value="">==請選擇==</option>
+                        <option value="博士">博士</option>
+                        <option value="碩士">碩士</option>
+                        <option value="學士">學士（大學）</option>
+                        <option value="副學士">副學士（二專、五專後兩年）</option>
+                        <option value="專科">專科（五專前三年）</option>
+                        <option value="高中職">高中 / 高職</option>
+                        <option value="國中">國中（初中）</option>
+                        <option value="國小">國小（小學）</option>
+                        <option value="其他">其他 / 不識字</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*戶籍地址</div>
+                <div class="form-content flex-row">
+                    <input type="text" placeholder="門牌號碼" style="width: 100px;">
+                    <input type="text" placeholder="請輸入" style="flex-grow: 1; max-width: none;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">*現居地址</div>
+                <div class="form-content" style="flex-direction: column; align-items: flex-start;">
+                    <div class="flex-row">
+                        <label><input type="checkbox"> 同戶籍地址</label>
+                        
+                        <a href="https://drive.google.com/file/d/1-k_b-Hd9ew8ygj38ezxTuvHsCWAtLA6C/view?usp=sharing" class="property-link" target="_blank">
+                            是否為本人之不動產 
+                            <img src="🔗.png" alt="https://drive.google.com/file/d/1-k_b-Hd9ew8ygj38ezxTuvHsCWAtLA6C/view?usp=sharing">
+                        </a>
+                    </div>
+                    <div class="flex-row city-selector-set" id="address-selector">
+                        <select class="county"></select>
+                        <select class="district"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-content flex-row">
+                    <span style="font-size: 14px;">所有權人統編</span>
+                    <input type="text" placeholder="請輸入" style="width: 120px;">
+                    <span style="font-size: 14px; margin-left: 20px;">所有權人姓名</span>
+                    <input type="text" placeholder="請輸入" style="width: 120px;">
+                </div>
+            </div>
+
+            <div class="form-row" style="background-color: #f9f9f9; padding: 15px; border-radius: 4px;">
+                <label class="flex-row">
+                    <input type="checkbox" checked>
+                    選擇 <strong style="border: 1px solid #ccc; padding: 2px 5px; background: white; margin: 0 5px;">台北數位部</strong> 
+                    <span style="font-size: 14px;">臺北市松山區民生東路四段54號5樓</span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">指定營業員</div>
+                <div class="form-content">
+                    <input type="text" placeholder="請輸入營業員編號" style="background-color: #f0f0f0;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">推薦碼</div>
+                <div class="form-content">
+                    <input type="text" placeholder="請輸入推薦碼" style="background-color: #f0f0f0;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-label">開戶分公司 <br><span class="text-red">(非必填)</span></div>
+                <div class="form-content flex-row">
+                    <div class="flex-row city-selector-set" id="branch-selector">
+                        <select class="county"></select>
+                        <select class="district"></select>
+                        <select style="width: auto;"><option>選擇開戶分公司</option></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="https://放新連結的位置_返回.com" class="btn btn-gray">返回</a>
+                <a href="https://放新連結的位置_下一步.com" class="btn btn-orange">下一步</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        華南永昌綜合證券股份有限公司 台北市松山區民生東路4段54號5樓<br>
+        證券客服專線:412-8889 *外島地區及行動電話用戶撥打時，請加(02)或(07)
+    </footer>
+
+    <script>
+    // 確保整個網頁的 HTML 都讀取完畢後，才執行以下程式碼
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // 初始化現居地址的縣市選單
+        new TwCitySelector({
+            el: '#address-selector',
+            elCounty: '.county',
+            elDistrict: '.district',
+            countyValue: '台北市', // 預設值
+            districtValue: '松山區' // 預設值
+        });
+
+        // 初始化開戶分公司的縣市選單
+        new TwCitySelector({
+            el: '#branch-selector',
+            elCounty: '.county',
+            elDistrict: '.district'
+        });
+        
+    });
+</script>
+</body>
+</html>
